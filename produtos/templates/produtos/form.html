@@ -1,0 +1,17 @@
+<h1>{% if produto %}Editar Produto{% else %}Novo Produto{% endif %}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <label>Nome:</label><br>
+    <input type="text" name="nome" value="{{ produto.nome|default:'' }}"><br>
+
+    <label>Preço:</label><br>
+    <input type="text" name="preco" value="{{ produto.preco|default:'' }}"><br>
+
+    <label>Estoque:</label><br>
+    <input type="text" name="estoque" value="{{ produto.estoque|default:'' }}"><br>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="{% url 'lista_produtos' %}">Voltar</a>
