@@ -1,17 +1,30 @@
-<h1>{% if produto %}Editar Produto{% else %}Novo Produto{% endif %}</h1>
+{% extends 'produtos/base.html' %}
 
-<form method="POST">
+{% block title %}
+    {% if produto %}Editar Produto{% else %}Novo Produto{% endif %}
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">{% if produto %}Editar Produto{% else %}Novo Produto{% endif %}</h1>
+
+<form method="POST" class="mb-3">
     {% csrf_token %}
-    <label>Nome</label><br>
-    <input type="text" name="nome" value="{{ produto.nome|default:'' }}"><br>
+    <div class="mb-3">
+        <label class="form-label">Nome:</label>
+        <input type="text" name="nome" class="form-control" value="{{ produto.nome|default:'' }}" required>
+    </div>
 
-    <label>Preço</label><br>
-    <input type="text" name="preco" value="{{ produto.preco|default:'' }}"><br>
+    <div class="mb-3">
+        <label class="form-label">Preço:</label>
+        <input type="number" name="preco" class="form-control" step="0.01" value="{{ produto.preco|default:'' }}" required>
+    </div>
 
-    <label>Estoque</label><br>
-    <input type="text" name="estoque" value="{{ produto.estoque|default:'' }}"><br>
+    <div class="mb-3">
+        <label class="form-label">Estoque:</label>
+        <input type="number" name="estoque" class="form-control" value="{{ produto.estoque|default:'' }}" required>
+    </div>
 
-    <button type="submit">Salvar</button>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="{% url 'lista_produtos' %}" class="btn btn-secondary ms-2">Cancelar</a>
 </form>
-
-<a href="{% url 'lista_produtos' %}">Voltar</a>
+{% endblock %}
